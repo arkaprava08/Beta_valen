@@ -181,7 +181,7 @@
                 height: 94%;
                 width: 60%;
 
-                overflow: hidden;
+                //overflow: hidden;
                 top: 4%;
                 left: 19%;
 
@@ -245,15 +245,16 @@
 
                 //height: 70%;
                 max-height: 85%;
-                width: 60%;
+                width: 55%;
                 margin-left: 20%;
                 top: 5%;
             }
             .inner-heart img{
+                position: relative;
                 width: 96%;
                 height: 96%;
 
-                opacity: 0;
+                opacity: .7;
 
                 border: 2px solid white;
             }
@@ -261,30 +262,135 @@
         </style>
 
         <style>
-            #p1_{
+            #p1_,#p2_,#p3_,#p4_,#p5_{
                 top: 200%;
+            }
+
+            .#p1{
+                position: absolute;
+
+            }
+
+            .#p1{
+                position: relative;
+                width: 96%;
+                height: 96%;
+
+                opacity: .5;
+
+                border: 2px solid white;
             }
         </style>
         <script src="js/libs/jquery/jquery.js"></script>
         <script>
 
+            var posOffsetTop = [];
+
             function itAllStarts()
             {
+                var time = 4000;
                 $('#p1_').animate({top: '5%'}, 1000);
 
                 setTimeout(function () {
                     $('#p1_').animate({top: '-200%'}, 1000);
-                    $('#p1').animate({opacity: '1'}, 3000)
-                }, 4000);
+                    $('#p1').animate({opacity: '1'}, 3000);
+
+                    $('#p2_').animate({top: '5%'}, 1000);
+                }, time);
+
+                time += 4000;
+                setTimeout(function () {
+                    $('#p2_').animate({top: '-200%'}, 1000);
+                    $('#p2').animate({opacity: '1'}, 3000);
+
+                    $('#p3_').animate({top: '5%'}, 1000);
+                }, time);
+
+                time += 4000;
+                setTimeout(function () {
+                    $('#p3_').animate({top: '-200%'}, 1000);
+                    $('#p3').animate({opacity: '1'}, 3000);
+
+                    $('#p4_').animate({top: '5%'}, 1000);
+                }, time);
+            }
+
+
+            function sampleStart()
+            {
+                console.log("dsa");
+
+
+                var time = 5000;
+                var h = 820;
+                var i = 1;
+                var id1, id2;
+
+                $('#p1').animate({top: -posOffsetTop[1]+50, width: '600%', height: '600%', opacity: '1', zIndex: '1000'}, 1000);
+
+
+                for (; i < 2; i++)
+                {
+                    setTimeout(function (x) {
+                        var id1 = '#p' + x;
+                        
+
+                        $(id1).animate({top: '0', left: '0', width: '96%', height: '96%', opacity: '.7', zIndex: '99'}, 1000);
+
+                        setTimeout(function (y) {
+                            console.log(id1 + "::" + y);
+                             var id2 = '#p' + (y + 1);
+
+                            $(id2).animate({top: -posOffsetTop[y+1]+50, width: '600%', height: '600%', opacity: '1'}, 1000);
+                        }, 2000, x);
+
+                    }, time, i);
+                    time += 5000;
+                }
+                
+                setTimeout(function (){
+                    var id1 = '#p' + i;
+                    $(id1).animate({top: '0', left: '0', width: '96%', height: '96%', opacity: '.7', zIndex: '99'}, 1000);
+                }, time);
+
+
+            }
+
+            function init()
+            {
+                var h = 820;
+                var w = 273.5;
+
+                for (var i = 1; i <= 29; i++)
+                {
+
+                    var id = "#p" + i;
+                    var offset = $(id).offset();
+
+                    posOffsetTop[i] = offset.top;
+
+                    var tempTop = h - offset.top;
+                    var tempLeft = w - offset.left + 121;
+
+                    console.log(id + ":" + offset.top + "\n");
+
+                    $(id).css({top: tempTop, left: tempLeft, width: '600%', height: '600%', opacity: '1', zIndex: '1000'}, 1000);
+                }
+                //$('#p1').css({top: '500%', left: '-150%', width: '600%', height: '600%', opacity: '1', zIndex: '99'}, 1000);
             }
 
             window.onload = function () {
+                init();
+
                 $("#loadImage").animate({top: '-100%'});
                 //$("#audio").trigger('play');
 
+
+
                 setTimeout(function ()
                 {
-                    itAllStarts();
+                    //itAllStarts();
+                    sampleStart();
                 }, 2000);
             }
 
@@ -303,13 +409,13 @@
         <audio loop id="audio">
             <source src="background.mp3">
         </audio>
-        <div class="slideshow">
-            <img id="p1_" src="pictures/p1.jpg" alt="" />
-            <img id="p2_" src="pictures/p2.jpg" alt="" />
-            <img id="p3_" src="pictures/p3.jpg" alt="" />
-            <img id="p4_" src="pictures/p4.jpg" alt="" />
-            <img id="p5_" src="pictures/p5.jpg" alt="" />
-        </div>
+        <!--        <div class="slideshow">
+                    <img id="p1_" src="pictures/p1.jpg" alt="" />
+                    <img id="p2_" src="pictures/p2.jpg" alt="" />
+                    <img id="p3_" src="pictures/p3.jpg" alt="" />
+                    <img id="p4_" src="pictures/p4.jpg" alt="" />
+                    <img id="p5_" src="pictures/p5.jpg" alt="" />
+                </div>-->
         <div class="outer-heart">
             <div class="watermark">
 
